@@ -38,16 +38,5 @@ alias v='nvim'
 
 alias rm='trash'
 
-# Config
-alias termiteconf="nvim ~/.config/termite/config"
-alias zshrc="nvim ~/.zshrc && source ~/.zshrc"
-alias vinit="cd ~/Code/dotfiles/.config/nvim && v init.vim"
-alias i3conf="nvim ~/.i3/config"
-alias tmuxconf="nvim ~/.tmux.conf"
-alias xres="nvim ~/.Xresources && xrdb ~/.Xresources"
-
-alias update.="gaa && gcm 'Update dotfiles' && gpo master"
-
 # Man
 alias h='tldr'
-

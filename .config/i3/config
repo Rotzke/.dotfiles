@@ -29,8 +29,8 @@
   set $workspace9 "9: "
   set $workspace10 "10: "
 
-  set $monitor1 "DVI-I-1"
-  set $monitor2 "HDMI-0"
+  set $monitor1 "VGA1"
+  
 
 # General Configuration
   font pango:System San Francisco Display 10
@@ -120,14 +120,12 @@
 
 # Program Workspaces
   assign [class="Firefox"] $workspace1
-  assign [class="Spotify"] $workspace10
-
+  
 # Floating
   for_window [class="Lxappearance"] floating enable
-  for_window [class="Seahorse"] floating enable
   for_window [class="Pavucontrol"] floating enable
 
-# Widow Colours
+# Window Colours
 #                         border  background text    indicator
   client.focused          $base01 $base01    $base07 $base0F
   client.focused_inactive $base02 $base02    $base03 $base0F
