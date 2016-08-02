@@ -1,2 +1,2 @@
-# configs
-Various configs to backup; installation scripts.
+# Configuration files
+Various configs to backup, installation scripts and stuff.
