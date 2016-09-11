@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "When? "
+read DATETIME
+
+echo 'Sleep in 3 seconds'
+clear
+rtcwake -u -t $(date +%s -d "$DATETIME") -m mem
+
