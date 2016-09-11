@@ -39,7 +39,7 @@ set expandtab
 set shiftwidth=4
 
 " show a visual line under the cursor's current line
-set cursorline
+"set cursorline
 
 " show the matching part of the pair for [] {} and ()
 set showmatch
@@ -51,6 +51,9 @@ let python_highlight_all = 1
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
+Plugin 'junegunn/goyo.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'scrooloose/nerdtree'
 " Flags
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
@@ -58,3 +61,21 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 set encoding=utf-8
 let python_highlight_all=1
 syntax on
+set background=dark
+set rtp+=/home/nikita/.local/lib/python3.5/site-packages/powerline/bindings/vim
+set laststatus=2
+set showtabline=2
+set noshowmode
+colorscheme gruvbox
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+map <C-n> :NERDTreeToggle<CR>
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
