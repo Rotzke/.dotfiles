@@ -31,7 +31,7 @@ today = date.today().strftime('%Y-%m-%d')
 hostname = "google.com"
 response = os.system("ping -c 1 -w2 "+hostname+" > /dev/null 2>&1")
 if response == 0:
-    data = urlopen('https://api.forecast.io/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4753,35.1578,'+str(today)+'T08:00:00?units=si&exclude=minute,today,currently,daily,flags')
+    data = urlopen('https://api.forecast.io/forecast/{API_GOES_HERE}/48.4753,35.1578,'+str(today)+'T08:00:00?units=si&exclude=minute,today,currently,daily,flags')
     raw_json = json.loads(data.read().decode('UTF-8'))
     df_weather = pd.DataFrame.from_dict(raw_json['hourly']['data'])
     df_weather['time'] = pd.to_datetime(df_weather['time'],unit='s')
