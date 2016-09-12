@@ -1,2 +1,2 @@
 # Configuration files
-Various configs to backup, installation scripts and stuff.
+Configs, scripts, etc. to backup from desktop and server machines.
