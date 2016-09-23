@@ -2,6 +2,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import psycopg2
 import json
 import os
@@ -22,27 +23,33 @@ while True:
         sys.exit()
 
 query = 'SELECT * FROM temperature WHERE date >= now()::date;'
+arduino = 'SELECT * FROM arduino WHERE date >= now()::date;'
 #Loading csv and converting date to timestamp entries:
 df = pd.read_sql(query, conn)
 df['date'] = pd.to_datetime(df['date'])
+df_arduino = pd.read_sql(arduino, conn)
+df_arduino['date'] = pd.to_datetime(df_arduino['date'])
 #Creating variables for dates:
 today = date.today().strftime('%Y-%m-%d')
 #Uploading weather data
 hostname = "google.com"
 response = os.system("ping -c 1 -w2 "+hostname+" > /dev/null 2>&1")
 if response == 0:
-    data = urlopen('https://api.forecast.io/forecast/{API_GOES_HERE}/48.4753,35.1578,'+str(today)+'T08:00:00?units=si&exclude=minute,today,currently,daily,flags')
+    data = urlopen('https://api.forecast.io/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4753,35.1578,'+str(today)+'T08:00:00?units=si&exclude=minute,today,currently,daily,flags')
     raw_json = json.loads(data.read().decode('UTF-8'))
     df_weather = pd.DataFrame.from_dict(raw_json['hourly']['data'])
     df_weather['time'] = pd.to_datetime(df_weather['time'],unit='s')
     df_weather['time'] = df_weather['time'] + pd.Timedelta('03:00:00')
-    plt.plot_date(df_weather['time'].iloc[8:23], df_weather['apparentTemperature'].iloc[8:23], xdate=True, ydate=False, color='red')
+    plt.plot_date(df_weather['time'].iloc[8:23], df_weather['apparentTemperature'].iloc[8:23], xdate=True, ydate=False, color='red', label='Weather')
 #Creating plot:
-plt.plot_date(df['date'], df['temp'], xdate=True, ydate=False, color='green')
-plt.ylim(0,60)
+plt.plot_date(df['date'], df['temp'], xdate=True, ydate=False, color='green', label='CPU')
+plt.plot_date(df_arduino['date'], df_arduino['temp'], xdate=True, ydate=False, color='blue', label='Arduino DF11')
+plt.ylim(-20,60)
+#plt.yticks(np.arange(-20,61,5))
 plt.xlim(['07:00:00','23:00:00'])
 plt.xticks(rotation=60)
 plt.grid(True)
+#plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=4, mode='expand', borderaxespad=0.)
 #Saving plot to file:
 plt.savefig('/home/nikita/shared/server_temperature/temperature_' + str(today) + '.png', bbox_inches='tight')
 
