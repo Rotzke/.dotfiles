@@ -1,22 +1,24 @@
-set nocompatible              " required
-filetype off                  " required
+set nocompatible              " required for Vundle
+filetype off                  " required for Vundle
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
+" let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
+" plugins 
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bronson/vim-crosshairs'
+Plugin 'vim-airline/vim-airline'
+Plugin 'morhetz/gruvbox'
 
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()            " required for Vundle
+filetype plugin indent on    " required for Vundle
 
 " EOF for Vundle
 
@@ -38,44 +40,34 @@ set expandtab
 " when using the >> or << commands, shift lines by 4 spaces
 set shiftwidth=4
 
-" show a visual line under the cursor's current line
-"set cursorline
-
 " show the matching part of the pair for [] {} and ()
 set showmatch
 
 " enable all Python syntax highlighting features
 let python_highlight_all = 1
 
-" Plugins
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'nvie/vim-flake8'
-Plugin 'junegunn/goyo.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'scrooloose/nerdtree'
-" Flags
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-" Settings
-set encoding=utf-8
-let python_highlight_all=1
-syntax on
+" colorscheme settings
+colorscheme gruvbox
 set background=dark
-set rtp+=/home/nikita/.local/lib/python3.5/site-packages/powerline/bindings/vim
+
+" settings
+set encoding=utf-8
+syntax on
 set laststatus=2
 set showtabline=2
 set noshowmode
-colorscheme gruvbox
-"split navigations
+set cursorline
+set cursorcolumn
+
+" split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" NERDTree settings
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
 map <C-n> :NERDTreeToggle<CR>
-
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
