@@ -1,8 +1,13 @@
 #!/bin/bash
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m'
 
 case $1 in
     [sh]*)
-        /bin/ping -c 1 8.8.8.8 &> /dev/null && (echo -n 'Local temperature: ' && echo -n `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep "Local Weather" -A 1 -m 1 | tail -n 1 | awk '{print$1}' | grep -o -E '[0-9]+'` && echo -n '°C' && echo -e " $RED>$YELLOW>$GREEN>$NC" && echo -ne "$BLUE Today: $NC" && echo `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep -C 4 "Today" | tail -n 1` && echo -ne "$BLUE Tonight: $NC" && echo `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep -C 4 "Tonight" | tail -n 1` && echo -ne "$BLUE Tomorrow: $NC" && echo `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep -C 4 "Tomorrow" | tail -n 1`) || echo -e "$RED**LOCAL TEMPERATURE UNAVAILABLE**$NC"
+        /bin/ping -c 1 8.8.8.8 &> /dev/null && (echo -n 'Local temperature: ' && echo -n `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep "Local Weather" -A 1 -m 1 | tail -n 1 | awk '{print$1}' | grep -o -E '[0-9]+'` && echo -n '°C' && echo -e " $RED>$YELLOW>$GREEN>$NC" && echo -ne "$BLUE Tnight: $NC" && echo `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep -C 4 "Tonight" | tail -n 1` && echo -ne "$BLUE Tmorrw: $NC" && echo `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep -C 4 "Tomorrow" | tail -n 1`) || echo -e "$RED**LOCAL TEMPERATURE UNAVAILABLE**$NC"
         ;;
     [fu]*)
         /bin/ping -c 1 8.8.8.8 &> /dev/null && (echo -n 'Local temperature: ' && echo -n `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep "Local Weather" -A 1 -m 1 | tail -n 1 | awk '{print$1}' | grep -o -E '[0-9]+'` && echo '°C') || echo -e "$RED**LOCAL TEMPERATURE UNAVAILABLE**$NC";

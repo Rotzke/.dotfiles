@@ -125,7 +125,7 @@ export YELLOW='\033[0;33m'
 export GREEN='\033[0;32m'
 export BLUE='\033[0;34m'
 export NC='\033[0m'
-
+export PS1="$BLUE\w$NC $RED>$YELLOW>$GREEN>$NC \[$(tput sgr0)\]"
 fortune | cowsay -f tux | lolcat
 temp sh
 echo

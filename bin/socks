@@ -2,3 +2,12 @@
 
 gsettings set org.gnome.system.proxy mode $1 
 
+case $1 in
+    "manual"*)
+        echo -en $GREEN'Tor proxy enabled'$NC  
+        ;;
+    "none"*)
+        echo -e $RED'Tor proxy disabled'$NC
+        ;;
+esac
+
