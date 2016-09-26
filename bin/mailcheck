@@ -2,6 +2,6 @@
 
 if [ `cat /var/mail/nikita | wc -l` -gt 0 ]
 then
-    echo -e $GREEN"[MAIL]"$NC
+    echo -e $YELLOW"[MAIL]"$NC
 fi
 
