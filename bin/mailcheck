@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ `mail -e` ]
+then
+    echo -e $RED"You have new mail :3$NC"
+else
+    echo -e $GREEN"No new mail :3$NC"
+fi
+

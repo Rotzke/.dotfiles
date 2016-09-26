@@ -116,12 +116,20 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# added by Anaconda3 4.1.1 installer
+# Anaconda3 Python
 export PATH="/home/nikita/anaconda3/bin:$PATH"
-fortune | cowsay
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /home/nikita/.local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
+#Some rice :3
+export RED='\033[0;31m'
+export YELLOW='\033[0;33m'
+export GREEN='\033[0;32m'
+export BLUE='\033[0;34m'
+export NC='\033[0m'
+
+fortune | cowsay -f tux | lolcat
+temp sh
+echo
+mailcheck
+echo
+source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
