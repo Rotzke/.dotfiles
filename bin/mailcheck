@@ -1,9 +1,7 @@
 #!/bin/bash
 
-if [ `mail -e` ]
+if [ `cat /var/mail/nikita | wc -l` -gt 0 ]
 then
-    echo -e $RED"You have new mail :3$NC"
-else
-    echo -e $GREEN"No new mail :3$NC"
+    echo -e $GREEN"[MAIL]"$NC
 fi
 

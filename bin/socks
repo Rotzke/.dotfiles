@@ -4,10 +4,10 @@ gsettings set org.gnome.system.proxy mode $1
 
 case $1 in
     "manual"*)
-        echo -en $GREEN'Tor proxy enabled'$NC  
+        echo -en $GREEN'Tor proxy enabled: '$NC && echo `curl -s -x socks://127.0.0.1:9050 ifconfig.co` && touch ~/.proxy.lock
         ;;
     "none"*)
-        echo -e $RED'Tor proxy disabled'$NC
+        echo -en $RED'Tor proxy disabled: '$NC && echo `curl -s ifconfig.co` && rm ~/.proxy.lock
         ;;
 esac
 
