@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case $1 in
+    [short]*)
+        /bin/ping -c 1 8.8.8.8 &> /dev/null && (echo -n 'Local temperature: ' && echo -n `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep "Local Weather" -A 1 -m 1 | tail -n 1 | awk '{print$1}' | grep -o -E '[0-9]+'` && echo '°C') || echo '**LOCAL TEMPERATURE UNAVAILABLE**'
+        ;;
+    [full]*)
+        /bin/ping -c 1 8.8.8.8 &> /dev/null && (echo -n 'Local temperature: ' && echo -n `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep "Local Weather" -A 1 -m 1 | tail -n 1 | awk '{print$1}' | grep -o -E '[0-9]+'` && echo '°C') || echo '**LOCAL TEMPERATURE UNAVAILABLE**'
+        /bin/ping -c 1 10.100.82.141 &> /dev/null && (echo -n 'Attic temperature: ' && echo -n `ssh server '/home/nikita_srv/scripts/arduino_temp.py'` && echo '°C' && echo -n 'AtCPU temperature: ' && echo -n `ssh server '/home/nikita_srv/scripts/cpu_temp.sh'` && echo '°C') || (echo '**ATTIC TEMPERATURE UNAVAILABLE**' && echo '**AtCPU TEMPERATURE UNAVAILABLE**')
+        ;;
+esac
+
