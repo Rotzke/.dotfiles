@@ -1,9 +1,11 @@
 #!/bin/bash
 
-echo "When? "
-read DATETIME
-
-echo 'Sleep in 3 seconds'
+echo -ne $YELLOW"3 "$NC
+sleep 1
+echo -ne $YELLOW"2 "$NC
+sleep 1
+echo -ne $YELLOW"1 "$NC
+sleep 1
 clear
-rtcwake -u -t $(date +%s -d "$DATETIME") -m mem
+rtcwake -u -t $(date +%s -d "$1 $2") -m mem
 

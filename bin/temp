@@ -5,11 +5,25 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-case $1 in
-    [sh]*)
-        /bin/ping -c 1 8.8.8.8 &> /dev/null && (echo -n 'Local temperature: ' && echo -n `lynx http://www.accuweather.com/en/ua/dnipro/322722/weather-forecast/322722 -dump | grep "Local Weather" -A 1 -m 1 | tail -n 1 | awk '{print$1}' | grep -o -E '[0-9]+'` && echo '°C')  
-        ;;
-    [fu]*)
-        ;;
-esac
+/bin/ping -c 1 8.8.8.8 &> /dev/null 
+
+if [[ $? -eq 0 ]]
+then
+    echo -n "Local temperature: "
+    temp=$(curl -H 'Cache-Control: no cache' -s https://api.darksky.net/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.473905,35.152781?units=si | cut -d "{" -f3 | grep -o -e '.apparentTemperature..[0-9]\{1,2\}.[0-9]\{1,2\}' | cut -d ":" -f2) 
+    if [[ $(echo "($temp/1)" | bc) -gt 10 ]]
+    then
+        echo -e $YELLOW"$(echo "($temp/1)" | bc)°C"$NC
+    elif [[ $(echo "($temp/1)" | bc) -gt 20 ]]
+    then
+        echo -e $RED"$(echo "($temp/1)" | bc)°C"$NC
+    elif [[ $(echo "($temp/1)" | bc) -lt 10 ]]
+    then
+        echo -e $BLUE"$(echo "($temp/1)" | bc)°C"$NC
+    fi
+else
+    echo -e $RED"OFFLINE MODE: Weather unavailable"$NC
+fi
+    
+    
 
