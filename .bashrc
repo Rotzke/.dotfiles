@@ -125,7 +125,7 @@ export YELLOW='\033[0;33m'
 export GREEN='\033[0;32m'
 export BLUE='\033[0;34m'
 export NC='\033[0m'
-export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/pingcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[\$(~/bin/mailcheck)\]\[$BLUE\]\w\[$NC\]\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
+export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/pingcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[\$(~/bin/mailcheck)\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
 fortune | cowsay -f tux | lolcat
 temp
 sunsetdelta
