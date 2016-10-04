@@ -1,14 +1,21 @@
 #!/bin/bash
-NOW=`date +%s`
-SUNSET=`date -d "$(curl -s https://www.timeanddate.com/sun/ukraine/dnipro | grep "Sunset Today" | cut -d ">" -f 65 | cut -d "<" -f 1)" +%s`
 
-if [ $NOW -lt $SUNSET ] 
+/bin/ping -c 1 8.8.8.8 &> /dev/null
+
+if [[ $? -eq 0 ]]
 then
-    FIN_DIFF=$(( $SUNSET-$NOW ))
-    echo -n "Sunset timedelta: " && echo -en $YELLOW"-" && echo -e $(date -u --date @$FIN_DIFF +"%H:%M")$NC
-elif [ $NOW -gt $SUNSET ]
-then
-    FIN_DIFF=$(( $NOW-$SUNSET ))
-    echo -n "Sunset timedelta: " && echo -en $YELLOW"+" && echo -e $(date -u --date @$FIN_DIFF +"%H:%M")$NC
+    NOW=`date +%s`
+    SUNSET=`date -d "$(curl -s https://www.timeanddate.com/sun/ukraine/dnipro | grep "Sunset Today" | cut -d ">" -f 65 | cut -d "<" -f 1)" +%s`
+    if [ $NOW -lt $SUNSET ] 
+    then
+        FIN_DIFF=$(( $SUNSET-$NOW ))
+        echo -n "Sunset timedelta: " && echo -en $YELLOW"-" && echo -e $(date -u --date @$FIN_DIFF +"%H:%M")$NC
+    elif [ $NOW -gt $SUNSET ]
+    then
+        FIN_DIFF=$(( $NOW-$SUNSET ))
+        echo -n "Sunset timedelta: " && echo -en $YELLOW"+" && echo -e $(date -u --date @$FIN_DIFF +"%H:%M")$NC
+    fi
+else
+    echo -e $RED"[OFFLINE MODE]: Timedelta unavailable"$NC
 fi
 

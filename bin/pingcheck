@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ping -c 1 8.8.8.8 &> /dev/null && : || echo -e $RED"[OFFLINE]"$NC
+ping -c 1 8.8.8.8 &> /dev/null && echo -e $GREEN"[ONLINE]"$NC || echo -e $RED"[OFFLINE]"$NC
 

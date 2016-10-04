@@ -1,9 +1,4 @@
 #!/bin/bash
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m'
 
 /bin/ping -c 1 8.8.8.8 &> /dev/null 
 
@@ -22,7 +17,7 @@ then
         echo -e $BLUE"$(echo "($temp/1)" | bc)°C"$NC
     fi
 else
-    echo -e $RED"OFFLINE MODE: Weather unavailable"$NC
+    echo -e $RED"[OFFLINE MODE]: Weather unavailable"$NC
 fi
     
     

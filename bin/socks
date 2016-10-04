@@ -1,13 +1,12 @@
 #!/bin/bash
 
-gsettings set org.gnome.system.proxy mode $1 
 
 case $1 in
     "manual"*)
-        ping -c 1 8.8.8.8 &> /dev/null && echo -en $GREEN'Tor proxy enabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s -x socks://127.0.0.1:9050 ifconfig.co` && touch ~/.proxy.lock || echo -e $RED"OFFLINE MODE: Proxy unavailable"$NC
+        ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 && echo -en $RED'Tor proxy enabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s -x socks://127.0.0.1:9050 ifconfig.co` && touch ~/.proxy.lock || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
         ;;
     "none"*)
-        ping -c 1 8.8.8.8 &> /dev/null && echo -en $RED'Tor proxy disabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s ifconfig.co` && rm ~/.proxy.lock || echo -e $RED"OFFLINE MODE: Proxy unavailable"$NC
+        ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 && echo -en $RED'Tor proxy disabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s ifconfig.co` && rm ~/.proxy.lock || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
         ;;
 esac
 

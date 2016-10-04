@@ -1,4 +1,4 @@
 #!/bin/bash
 
-if [ -f ~/.proxy.lock ];then echo -e $RED'[TOR]'$NC;fi
+if [ -f ~/.proxy.lock ];then echo -e $RED'[TOR]'$NC;else echo -e $GREEN'[DIRECT]'$NC;fi
 
