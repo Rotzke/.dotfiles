@@ -125,8 +125,10 @@ export YELLOW='\033[0;33m'
 export GREEN='\033[0;32m'
 export BLUE='\033[0;34m'
 export NC='\033[0m'
-export PS1="\$(~/bin/proxycheck)\$(~/bin/mailcheck)\$(~/bin/pingcheck)\[$BLUE\]\w\[$NC\] \[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] \[$(tput sgr0)\]"
+export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/pingcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[\$(~/bin/mailcheck)\]\[$BLUE\]\w\[$NC\]\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
 fortune | cowsay -f tux | lolcat
-#temp sh
+temp
+sunsetdelta
+echo
 source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
