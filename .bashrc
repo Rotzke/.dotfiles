@@ -76,7 +76,7 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
+    alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
@@ -116,8 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Anaconda3 Python
-export PATH="/home/nikita/anaconda3/bin:$PATH"
+#VIM bindings
+set -o vi
+
+#theFUCK
+eval "$(thefuck --alias)"
 
 #Some rice :3
 export RED='\033[0;31m'
@@ -125,10 +128,17 @@ export YELLOW='\033[0;33m'
 export GREEN='\033[0;32m'
 export BLUE='\033[0;34m'
 export NC='\033[0m'
-export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/pingcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[\$(~/bin/mailcheck)\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
+
+#New PS1!
+export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/pingcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
+
+#Greetings
 fortune | cowsay -f tux | lolcat
-temp
 sunsetdelta
 echo
+
+#Gruvbox palette fix
 source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
+# added by Anaconda3 4.2.0 installer
+export PATH="$PATH:/home/nikita/anaconda3/bin"
