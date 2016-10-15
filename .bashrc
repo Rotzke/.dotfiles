@@ -130,11 +130,12 @@ export BLUE='\033[0;34m'
 export NC='\033[0m'
 
 #New PS1!
-export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/pingcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
+export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
 
 #Greetings
 fortune | cowsay -f tux | lolcat
 sunsetdelta
+weather
 echo
 
 #Gruvbox palette fix
