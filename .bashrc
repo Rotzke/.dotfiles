@@ -134,8 +134,8 @@ export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$
 
 #Greetings
 fortune | cowsay -f tux | lolcat
-sunsetdelta
-weather
+#/home/nikita/bin/sunsetdelta
+#/home/nikita/bin/weather
 echo
 
 #Gruvbox palette fix

@@ -9,11 +9,11 @@ then
     if [ $NOW -lt $SUNSET ] 
     then
         FIN_DIFF=$(( $SUNSET-$NOW ))
-        echo -n " Δ = " && echo -en $YELLOW"-" && echo -e $(date -u --date @$FIN_DIFF +"%H:%M")$NC
+        echo -n " Δ = " && echo -en $YELLOW"-" && echo -ne $(date -u --date @$FIN_DIFF +"%H:%M")$NC 
     elif [ $NOW -gt $SUNSET ]
     then
         FIN_DIFF=$(( $NOW-$SUNSET ))
-        echo -n " Δ = " && echo -en $YELLOW"+" && echo -e $(date -u --date @$FIN_DIFF +"%H:%M")$NC
+        echo -n " Δ = " && echo -en $YELLOW"+" && echo -ne $(date -u --date @$FIN_DIFF +"%H:%M")$NC
     fi
 else
     echo -e $RED"[OFFLINE MODE]: Timedelta unavailable"$NC

@@ -4,9 +4,9 @@
 
 if [ -f ~/.proxy.lock ]
 then
-    echo -n ' ΔT = ' && echo -e $YELLOW`curl -H 'Cache-Control: no-cache' -x socks://127.0.0.1:9050 -s 'https://api.darksky.net/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4739,35.1527?units=si&exclude=minutely,hourly,daily,alerts,flags' | cut -d'"' -f18,31 | sed 's/":/, /g' | cut -d',' -f1,2`$NC
+    echo -n ' ΔT = ' && echo -ne $YELLOW`curl -H 'Cache-Control: no-cache' -x socks://127.0.0.1:9050 -s 'https://api.darksky.net/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4739,35.1527?units=si&exclude=minutely,hourly,daily,alerts,flags' | cut -d'"' -f18,31 | sed 's/":/, /g' | cut -d',' -f1,2`$NC
 elif [ ! -f ~/.proxy.lock ]
 then
-    echo -n ' ΔT = ' && echo -e $YELLOW`curl -H 'Cache-Control: no-cache' -s 'https://api.darksky.net/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4739,35.1527?units=si&exclude=minutely,hourly,daily,alerts,flags' | cut -d'"' -f18,31 | sed 's/":/, /g' | cut -d',' -f1,2`$NC
+    echo -n ' ΔT = ' && echo -ne $YELLOW`curl -H 'Cache-Control: no-cache' -s 'https://api.darksky.net/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4739,35.1527?units=si&exclude=minutely,hourly,daily,alerts,flags' | cut -d'"' -f18,31 | sed 's/":/, /g' | cut -d',' -f1,2`$NC
 fi
 
