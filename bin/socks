@@ -3,10 +3,17 @@
 
 case $1 in
     "manual"*)
-        ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 && echo -en $RED'Tor proxy enabled: '$NC && echo -n `curl -H 'Cache-Control: no-cache' -s -x socks://127.0.0.1:9050 ifconfig.co/json | cut -d'"' -f4,10 | sed 's/\"/\//g'` && touch ~/.proxy.lock || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+        if [ -f ~/.proxy.lock ];then echo -e $YELLOW'Tor proxy already enabled!'$NC && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 && echo -en $RED'Tor proxy enabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s -x socks://127.0.0.1:9050 ifconfig.co/json | cut -d'"' -f4,10 | sed 's/\"/\//g'` && touch ~/.proxy.lock || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
         ;;
     "none"*)
-        ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 && echo -en $RED'Tor proxy disabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s ifconfig.co` && rm ~/.proxy.lock || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+        if [ ! -f ~/.proxy.lock ];then echo -e $YELLOW'Tor proxy already disabled!'$NC && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 && echo -en $RED'Tor proxy disabled: '$NC && echo `curl -H 'Cache-Control: no-cache' -s ifconfig.co` && rm ~/.proxy.lock || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+        ;;
+    "reload"*)
+        if [ ! -f ~/.proxy.lock ];then echo -e $YELLOW'Enable Tor proxy first!'$NC && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && sudo service tor reload && echo -en $RED'Tor proxy reloaded: '$NC && echo `curl -H 'Cache-Control: no-cache' -s -x socks://127.0.0.1:9050 ifconfig.co/json | cut -d'"' -f4,10 | sed 's/\"/\//g'` || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+
+        ;;
+    *)
+        echo -ne $RED"No [$1] option! "$NC;echo "Use 'manual' or 'none'"
         ;;
 esac
 
