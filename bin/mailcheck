@@ -1,7 +1,4 @@
 #!/bin/bash
 
-if [ `cat /var/mail/nikita | wc -l` -gt 0 ]
-then
-    echo -e $YELLOW"[MAIL]"$NC
-fi
+mail -e && echo -e $RED"[MAIL]"$NC || echo -e $GREEN"[NO MAIL]"$NC
 

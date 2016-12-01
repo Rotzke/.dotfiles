@@ -49,6 +49,7 @@ let python_highlight_all = 1
 " colorscheme settings
 colorscheme gruvbox
 set background=dark
+"let g:airline_powerline_fonts = 1
 
 " settings
 set encoding=utf-8

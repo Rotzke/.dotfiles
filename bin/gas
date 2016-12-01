@@ -1,0 +1,90 @@
+#!/usr/bin/env python3.5 
+
+import psycopg2
+import argparse
+from tabulate import tabulate
+from datetime import date, timedelta, datetime
+
+#Getting parsers ready
+parser = argparse.ArgumentParser(description="Gas supply numbers management. Possible usage? Monitoring how fast you waste precious gas. Modified from interactive script.",epilog="And that's how you get the shit done.")
+parser.add_argument('table',nargs='?',help='GET the full gas data table.')
+parser.add_argument('-p','--post',nargs=1,type=int,help='POST data for TODAY.')
+parser.add_argument('-i','--info',nargs=1,help='INFO on exact day from data table.')
+parser.add_argument('-r','--range',nargs=2,type=str,help='GET range of dates info.')
+args = parser.parse_args()
+
+#PostgreSQL connection
+conn = psycopg2.connect("user=nikita")
+
+#Main functions to get/post data
+def get_some(date):
+    exact_date = date_check(date)
+    with conn:
+        try:
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM gas WHERE date=%s;",(exact_date,))
+            get_data = cur.fetchall()
+            tabed(get_data)
+        except TypeError:
+            print("No data for "+str(date)+"!")
+            exit(0)
+
+def post_some(gas_count):
+    with conn:
+        # https://api.darksky.net/forecast/f4b2b876511f01f53ff2c7c29d10f43e/48.4739,35.1527,2016-11-11T10:00:00?exclude=currently,hourly&units=si - Time Machine DarkSky request
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM gas ORDER BY date DESC LIMIT 1;")
+        yesterday_date, yesterday = cur.fetchone()[0:2]
+        current_count = gas_count - int(yesterday)
+        current_price = current_count * 6.8
+        print("Since",yesterday_date,"used",current_count,"c.m. of gas with a price of",round(current_price, 2),"UAH.")
+        cur.execute("INSERT INTO gas(date,count,diff,price) VALUES(date('now'),%s,%s,%s)",(gas_count,current_count,current_price))
+        conn.commit()
+
+def get_full():
+    with conn:
+        cur=conn.cursor()
+        cur.execute("SELECT * FROM gas;")
+        table = cur.fetchall()
+        tabed(table)
+
+def get_range(first,second):
+    start_date = date_check(first)
+    finish_date = date_check(second)
+    with conn:
+        try:
+            cur = conn.cursor()
+            cur.execute("SELECT %s||'\\'||%s, MAX(count)-MIN(count), SUM(price) FROM gas WHERE date>=%s AND date<%s;",(start_date,finish_date,start_date,finish_date))
+            get_data = cur.fetchall()
+            tabed(get_data,['Date Range','Measure','Price'])
+        except TypeError:
+            print("No data for dates range!")
+            exit(0)
+
+def tabed(table,headers=['Date','Measure','c.m.','Price']):
+    print(tabulate(table,headers,tablefmt="psql"))
+
+def date_check(date):
+    try:
+        checked = datetime.strftime((datetime.strptime(date,"%Y-%m-%d")),"%Y-%m-%d")
+    except ValueError:
+        print("Invalid date format: "+str(date)+", use %Y-%m-%d!")
+        exit(1)
+    return checked
+
+
+#Checking parameters
+if args.post:
+    post_some(args.post[0])
+    exit(0)
+
+if args.info:
+    get_some(args.info[0])
+    exit(0)
+
+elif args.range:
+    get_range(args.range[0],args.range[1])
+    exit(0)
+
+get_full()
+
