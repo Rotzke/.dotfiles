@@ -132,12 +132,6 @@ export NC='\033[0m'
 #New PS1!
 export PS1="\[$YELLOW\][\H][\j]\[$NC\]\[\$(~/bin/mailcheck)\]\[\$(~/bin/proxycheck)\]\[$YELLOW\][\t]\[$NC\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
 
-#Greetings
-fortune | cowsay -f tux | lolcat
-#/home/nikita/bin/sunsetdelta
-#/home/nikita/bin/weather
-echo
-
 #Gruvbox palette fix
 source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
