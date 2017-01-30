@@ -1,0 +1,3 @@
+#!/bin/bash
+
+if [ `gsettings get org.gnome.system.proxy mode` == "'manual'" ];then echo -en $RED'[TOR]'$NC;else echo -ne $GREEN'[DIRECT]'$NC;fi
