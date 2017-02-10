@@ -130,10 +130,15 @@ export BLUE='\033[0;34m'
 export NC='\033[0m'
 
 #New PS1!
-export PS1="\[$YELLOW\]\[[\j]\]\[$NC\]\[\$(~/bin/sockscheck)\]\[\$(~/bin/mailcheck)\]\[$YELLOW\][\t]\[$NC\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
+#export PS1="\[$YELLOW\]\[[\j]\]\[$NC\]\[\$(~/bin/sockscheck)\]\[\$(~/bin/mailcheck)\]\[$YELLOW\][\t]\[$NC\]\[$BLUE\]\w\[$NC\]\$(__git_ps1 ' [%s]')\n\[$RED\]>\[$YELLOW\]>\[$GREEN\]>\[$NC\] "
 
 #Gruvbox palette fix
 source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
 # added by Anaconda3 4.2.0 installer
 export PATH="$PATH:/home/nikita/anaconda3/bin"
+
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /home/nikita/.local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
