@@ -13,14 +13,21 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
-Plugin 'bronson/vim-crosshairs'
-Plugin 'vim-airline/vim-airline'
 Plugin 'morhetz/gruvbox'
 
 call vundle#end()            " required for Vundle
 filetype plugin indent on    " required for Vundle
 
 " EOF for Vundle
+
+" powerline
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+
+" enable folding with the spacebar
+nnoremap <space> za
+let g:SimpylFold_docstring_preview=1
 
 " enable syntax highlighting
 syntax enable
@@ -49,16 +56,16 @@ let python_highlight_all = 1
 " colorscheme settings
 colorscheme gruvbox
 set background=dark
-"let g:airline_powerline_fonts = 1
 
 " settings
+set listchars=eol:¬,tab:▸\
+set list
 set encoding=utf-8
 syntax on
 set laststatus=2
 set showtabline=2
 set noshowmode
-set cursorline
-set cursorcolumn
+set fillchars-=vert:\| | set fillchars+=vert:\
 
 " split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -71,4 +78,3 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-

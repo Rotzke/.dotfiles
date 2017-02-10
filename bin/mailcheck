@@ -1,4 +1,0 @@
-#!/bin/bash
-
-mail -e && echo -e $RED"[MAIL]"$NC || echo -e $GREEN"[NO MAIL]"$NC
-
