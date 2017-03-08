@@ -30,6 +30,7 @@ let g:SimpylFold_docstring_preview=1
 " nord settings
 let g:nord_italic_comments = 1
 let g:airline_powerline_fonts = 1
+
 " enable syntax highlighting
 syntax enable
 
