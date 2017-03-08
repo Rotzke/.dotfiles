@@ -1,18 +1,17 @@
 #!/bin/bash
 
-
 case $1 in
     "manual"*)
-        if [ `gsettings get org.gnome.system.proxy mode` == "'manual'" ];then echo -e $YELLOW'Tor proxy already enabled!'$NC && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+        if [ `gsettings get org.gnome.system.proxy mode` == "'manual'" ];then echo 'Tor proxy already enabled!' && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 || echo '[OFFLINE MODE]: Proxy unavailable'
         ;;
     "none"*)
-        if [ `gsettings get org.gnome.system.proxy mode` == "'none'" ];then echo -e $YELLOW'Tor proxy already disabled!'$NC && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+        if [ `gsettings get org.gnome.system.proxy mode` == "'none'" ];then echo 'Tor proxy already disabled!' && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && gsettings set org.gnome.system.proxy mode $1 || echo '[OFFLINE MODE]: Proxy unavailable'
         ;;
     "reload"*)
-        if [ `gsettings get org.gnome.system.proxy mode` == "'none'" ];then echo -e $YELLOW'Enable Tor proxy first!'$NC && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && sudo service tor reload && echo -en $RED'Tor proxy reloaded!'$NC || echo -e $RED"[OFFLINE MODE]: Proxy unavailable"$NC
+        if [ `gsettings get org.gnome.system.proxy mode` == "'none'" ];then echo 'Enable Tor proxy first!' && exit 1;fi && ping -c 1 8.8.8.8 &> /dev/null && sudo service tor reload && echo -n 'Tor proxy reloaded!' || echo '[OFFLINE MODE]: Proxy unavailable'
         ;;
     *)
-        echo -ne $RED"No [$1] option! "$NC;echo "Use 'manual', 'none' or 'reload'"
+        echo -n 'No [$1] option! ';echo "Use 'manual', 'none' or 'reload'"
         ;;
 esac
 
